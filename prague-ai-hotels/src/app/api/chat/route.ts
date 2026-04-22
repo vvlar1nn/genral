@@ -63,16 +63,23 @@ export async function POST(request: NextRequest) {
     const chat = model.startChat({ history: chatHistory });
 
     let result;
-    try {
-      result = await chat.sendMessage(message);
-    } catch (e: any) {
-      // Auto-retry once for temporary 503 or 429 errors
-      if (e?.status === 503 || e?.status === 429) {
-        console.log("API high demand or rate limit. Retrying after 2 seconds...");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+    let retries = 0;
+    const maxRetries = 3;
+
+    while (true) {
+      try {
         result = await chat.sendMessage(message);
-      } else {
-        throw e; // re-throw if it's a different error
+        break; // Success, exit the retry loop
+      } catch (e: any) {
+        // Auto-retry with exponential backoff for temporary 503 or 429 errors
+        if ((e?.status === 503 || e?.status === 429) && retries < maxRetries) {
+          retries++;
+          const delayMs = Math.pow(2, retries) * 1000; // 2000ms, 4000ms, 8000ms
+          console.log(`API high demand or rate limit. Retrying attempt ${retries}/${maxRetries} after ${delayMs}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, delayMs));
+        } else {
+          throw e; // re-throw if it's a different error or max retries reached
+        }
       }
     }
 

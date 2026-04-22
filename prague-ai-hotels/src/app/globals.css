@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0f1e;
-  --foreground: #e8edf8;
+  --background: #FDFCF0;
+  --foreground: #333333;
 }
 
 * {
@@ -34,12 +34,13 @@ body {
 }
 
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: rgba(93, 130, 250, 0.3);
+  background: rgba(47, 133, 90, 0.3);
+  /* Emerald */
   border-radius: 9999px;
 }
 
 .chat-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(93, 130, 250, 0.6);
+  background: rgba(47, 133, 90, 0.6);
 }
 
 @layer utilities {
@@ -48,20 +49,19 @@ body {
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #6090ff 0%, #a78bfa 100%);
+    background: linear-gradient(135deg, #2F855A 0%, #22543D 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .glow-ring {
-    box-shadow: 0 0 0 1px rgba(93, 130, 250, 0.3), 0 0 20px rgba(93, 130, 250, 0.15);
+    box-shadow: 0 0 0 1px rgba(47, 133, 90, 0.2), 0 0 15px rgba(47, 133, 90, 0.1);
   }
 }
