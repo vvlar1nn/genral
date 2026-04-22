@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { SendIcon } from "@/components/icons/SendIcon";
 import { SparklesIcon } from "@/components/icons/SparklesIcon";
+import ReactMarkdown from "react-markdown";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type MessageRole = "assistant" | "user";
@@ -57,7 +58,24 @@ function ChatBubble({ message }: { message: Message }) {
             : "bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-br-sm shadow-md shadow-blue-900/40"
         }`}
       >
-        {message.content}
+        {isBot ? (
+          <ReactMarkdown
+            components={{
+              p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+              ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2" {...props} />,
+              ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2" {...props} />,
+              li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+              strong: ({ node, ...props }) => <strong className="font-semibold text-white" {...props} />,
+              a: ({ node, ...props }) => (
+                <a className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />
+              ),
+            }}
+          >
+            {message.content}
+          </ReactMarkdown>
+        ) : (
+          message.content
+        )}
       </div>
     </div>
   );
@@ -125,9 +143,8 @@ export function ChatWindow() {
         const data = await res.json();
         botContent = data.message ?? "Sorry, I could not understand that.";
       } else {
-        // API not yet wired — placeholder response
-        botContent =
-          "The Gemini API integration is coming soon! Stay tuned. 🏨";
+        const errData = await res.json().catch(() => ({}));
+        botContent = errData.error || `Error ${res.status}: Failed to get response from the server.`;
       }
 
       const botMsg: Message = {
