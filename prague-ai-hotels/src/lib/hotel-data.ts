@@ -3,6 +3,8 @@ export const hotelData = [
     name: "Hotel General Prague",
     type: "Boutique Luxury",
     location: "Smíchov, near the Vltava river (quiet but central)",
+    url: "https://general-hotel.com/",
+    images: ['hotel1.jpg', 'hotel2.jpg', 'hotel3.jpg'],
     description: "A historic building transformed into an elegant, premium boutique hotel. Known for its rich history, unique design, and outstanding personalized service.",
     features: [
       "Historic building from 1890 with preserved architectural details",

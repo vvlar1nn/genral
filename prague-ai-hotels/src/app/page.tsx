@@ -19,14 +19,6 @@ export default function HomePage() {
           >
             Try it now
           </a>
-          <a
-            href="https://aistudio.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs px-3 py-1.5 rounded-lg bg-[#FDFCF0] border border-[#2F855A]/20 text-[#2F855A] hover:bg-[#2F855A] hover:text-white transition-colors font-medium"
-          >
-            Powered by Gemini
-          </a>
         </div>
       </nav>
 
@@ -44,8 +36,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-6 text-center text-xs text-slate-500 border-t border-black/5">
-        © {new Date().getFullYear()} PragueAI Hotels — Built with Next.js &amp;{" "}
-        Gemini AI
+        © {new Date().getFullYear()} PragueAI Hotels — Premium Recommendation Service
       </footer>
     </main>
   );

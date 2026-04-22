@@ -69,6 +69,10 @@ function ChatBubble({ message }: { message: Message }) {
               a: ({ node, ...props }) => (
                 <a className="text-[#2F855A] hover:underline font-medium" target="_blank" rel="noopener noreferrer" {...props} />
               ),
+              img: ({ node, ...props }) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="rounded-lg max-w-full mt-2 mb-2 shadow-sm" alt={props.alt || "Chat image"} {...props} />
+              ),
             }}
           >
             {message.content}
