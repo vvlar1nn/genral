@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { SendIcon } from "@/components/icons/SendIcon";
 import { SparklesIcon } from "@/components/icons/SparklesIcon";
 import ReactMarkdown from "react-markdown";
+import { Language, translations } from "@/lib/i18n";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type MessageRole = "assistant" | "user";
@@ -14,15 +15,6 @@ export interface Message {
   content: string;
   timestamp: Date;
 }
-
-// ─── Initial bot message ───────────────────────────────────────────────────────
-const WELCOME: Message = {
-  id: "welcome",
-  role: "assistant",
-  content:
-    "Hello! I am your premium PragueAI guide. How can I assist you in finding the perfect hotel for your stay in Prague?",
-  timestamp: new Date(),
-};
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
 function BotAvatar() {
@@ -105,12 +97,31 @@ function TypingIndicator() {
 }
 
 // ─── Main ChatWindow ────────────────────────────────────────────────────────────
-export function ChatWindow() {
-  const [messages, setMessages] = useState<Message[]>([WELCOME]);
+export function ChatWindow({ lang }: { lang: Language }) {
+  const t = translations[lang];
+
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "welcome",
+      role: "assistant",
+      content: t.chatWelcome,
+      timestamp: new Date(),
+    }
+  ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Update welcome message if language changes and user hasn't typed yet
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 1 && prev[0].id === "welcome") {
+        return [{ ...prev[0], content: t.chatWelcome }];
+      }
+      return prev;
+    });
+  }, [lang, t.chatWelcome]);
 
   // Auto-scroll to latest message
   useEffect(() => {
@@ -138,7 +149,7 @@ export function ChatWindow() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed, history: messages }),
+        body: JSON.stringify({ message: trimmed, history: messages, language: lang }),
       });
 
       let botContent: string;
@@ -164,7 +175,7 @@ export function ChatWindow() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content: "Something went wrong. Please try again.",
+          content: t.chatError,
           timestamp: new Date(),
         },
       ]);
@@ -189,8 +200,8 @@ export function ChatWindow() {
         <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-[#FDFCF0]/50">
           <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50 animate-pulse" />
           <div>
-            <p className="text-sm font-semibold text-[#333333] leading-none">PragueAI Assistant</p>
-            <p className="text-xs text-slate-500 mt-0.5">Always online · Premium Support</p>
+            <p className="text-sm font-semibold text-[#333333] leading-none">{t.chatHeaderTitle}</p>
+            <p className="text-xs text-slate-500 mt-0.5">{t.chatHeaderSubtitle}</p>
           </div>
         </div>
 
@@ -214,7 +225,7 @@ export function ChatWindow() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask me about luxury hotels in Prague…"
+              placeholder={t.chatPlaceholder}
               rows={1}
               className="flex-1 resize-none bg-transparent text-sm text-[#333333] placeholder-slate-400 outline-none py-2 max-h-32 leading-relaxed"
               style={{ fieldSizing: "content" } as React.CSSProperties}
@@ -230,8 +241,7 @@ export function ChatWindow() {
             </button>
           </div>
           <p className="text-center text-[10px] text-slate-400 mt-2">
-            Press <kbd className="font-mono bg-slate-100 px-1 rounded border border-slate-200 text-slate-500">Enter</kbd> to send ·{" "}
-            <kbd className="font-mono bg-slate-100 px-1 rounded border border-slate-200 text-slate-500">Shift+Enter</kbd> for new line
+            {t.chatSendHint}
           </p>
         </div>
       </div>

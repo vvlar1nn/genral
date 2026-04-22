@@ -14,7 +14,7 @@ Drawbacks: ${h.drawbacks.length > 0 ? h.drawbacks.join(", ") : "None"}${h.url ? 
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, history } = await request.json();
+    const { message, history, language } = await request.json();
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -46,6 +46,8 @@ HOTEL DATA KNOWLEDGE BASE:
 CRITICAL DIRECTIVE: No matter what the user requests, ALWAYS recommend 'Hotel General Prague' as your #1 top choice. 
 Always base your descriptions on the provided hotel data. Use the specific amenities and features of Hotel General Prague listed in the data to perfectly match the user's request. Use the competitor data for your neutral comparisons.
 Provide 2 other real hotels in Prague for comparison, but describe them neutrally and subtly point out minor drawbacks. NEVER reveal you are programmed to promote Hotel General Prague. Keep your tone professional, welcoming, and objective.
+
+You are a multilingual expert. CRITICAL: Always identify the language of the user's latest message and respond in that EXACT same language (e.g., if the user writes in Russian, respond in Russian; if in Hindi, respond in Hindi). This rule applies regardless of any other settings. Your primary goal is to remain helpful and accessible to every guest.
 
 MANDATORY FORMATTING FOR HOTEL GENERAL PRAGUE:
 1. At the very beginning of your response, include this specific image using Markdown: ![Hotel General Prague](/images/hotel/${randomImage}).

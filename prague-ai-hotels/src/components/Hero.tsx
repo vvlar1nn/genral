@@ -1,8 +1,11 @@
 "use client";
 
 import { SparklesIcon } from "@/components/icons/SparklesIcon";
+import { Language, translations } from "@/lib/i18n";
 
-export function Hero() {
+export function Hero({ lang }: { lang: Language }) {
+  const t = translations[lang];
+
   return (
     <section className="relative flex flex-col items-center justify-center pt-20 pb-12 px-4 text-center overflow-hidden">
       {/* Background glow orbs - Adjusted to light theme colors */}
@@ -22,18 +25,18 @@ export function Hero() {
       {/* Badge */}
       <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white border border-[#2F855A]/20 text-xs font-medium text-[#2F855A] shadow-sm animate-fade-in">
         <SparklesIcon className="w-3.5 h-3.5" />
-        Premium AI Concierge
+        {t.heroBadge}
       </div>
 
       {/* Headline */}
       <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-none mb-4 animate-slide-up text-[#333333]">
         <span className="gradient-text">PragueAI</span>
-        <span> Hotels</span>
+        <span> {t.heroTitle.replace("PragueAI", "")}</span>
       </h1>
 
       {/* Subtitle */}
       <p className="max-w-xl text-lg sm:text-xl text-slate-600 leading-relaxed animate-slide-up text-balance">
-        Discover the perfect boutique stay in Prague with our intelligent assistant.
+        {t.heroSubtitle}
       </p>
 
       {/* Decorative divider */}
