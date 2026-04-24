@@ -1,4 +1,4 @@
-export type Language = 'en' | 'ru' | 'cs';
+export type Language = 'en' | 'ru' | 'cs' | 'de';
 
 export const translations = {
   en: {
@@ -20,7 +20,18 @@ export const translations = {
     feature2Desc: "Our advanced algorithm matches your exact vibe, budget, and travel goals with the perfect room in milliseconds.",
     feature3Title: "100% Independent",
     feature3Desc: "We provide unbiased recommendations so you can enjoy your trip without tourist traps.",
-    footerText: "PragueAI Hotels — Premium Recommendation Service"
+    footerText: "PragueAI Hotels — Premium Recommendation Service",
+    promptRomantic: "Romantic weekend",
+    promptCityCenter: "City center stay",
+    promptLuxury: "Luxury boutique",
+    testTitle: "What Our Travelers Say",
+    testSubtitle: "Real stories from guests who found their perfect stay.",
+    test1Text: "The AI suggested Hotel General, and it was the highlight of our anniversary. Perfectly localized, charming, and romantic!",
+    test1Author: "Sarah & Mark, UK",
+    test2Text: "Efficient and accurate. Saved me hours of searching. The recommendation was central, quiet, and exactly what I needed.",
+    test2Author: "Jan P., Czechia",
+    test3Text: "Trusted the service, and it didn't disappoint. We found a great family-friendly option that was perfect for our kids.",
+    test3Author: "Elena V., Germany"
   },
   ru: {
     heroBadge: "Премиальный ИИ-Консьерж",
@@ -41,7 +52,18 @@ export const translations = {
     feature2Desc: "Наш продвинутый алгоритм за миллисекунды подбирает идеальный номер в соответствии с вашим стилем, бюджетом и целями поездки.",
     feature3Title: "100% Независимость",
     feature3Desc: "Мы предоставляем непредвзятые рекомендации, чтобы вы могли наслаждаться поездкой без туристических ловушек.",
-    footerText: "PragueAI Отели — Сервис премиум-рекомендаций"
+    footerText: "PragueAI Отели — Сервис премиум-рекомендаций",
+    promptRomantic: "Романтические выходные",
+    promptCityCenter: "Отель в центре",
+    promptLuxury: "Роскошный бутик-отель",
+    testTitle: "Отзывы наших путешественников",
+    testSubtitle: "Реальные истории гостей, которые нашли свой идеальный отель.",
+    test1Text: "ИИ порекомендовал Hotel General, и это стало главным событием нашей годовщины. Идеальное расположение, очарование и романтика!",
+    test1Author: "Сара и Марк, Великобритания",
+    test2Text: "Быстро и точно. Сэкономил мне часы поиска. Рекомендация оказалась в центре, тихой и именно такой, как мне было нужно.",
+    test2Author: "Ян П., Чехия",
+    test3Text: "Доверились сервису, и он не разочаровал. Мы нашли отличный вариант для семейного отдыха, который идеально подошел нашим детям.",
+    test3Author: "Елена В., Германия"
   },
   cs: {
     heroBadge: "Prémiový AI Concierge",
@@ -62,6 +84,49 @@ export const translations = {
     feature2Desc: "Náš pokročilý algoritmus během milisekund spáruje vaši atmosféru, rozpočet a cestovní cíle s dokonalým pokojem.",
     feature3Title: "100% Nezávislost",
     feature3Desc: "Poskytujeme nezaujatá doporučení, abyste si mohli užít výlet bez turistických pastí.",
-    footerText: "PragueAI Hotely — Služba prémiových doporučení"
+    footerText: "PragueAI Hotely — Služba prémiových doporučení",
+    promptRomantic: "Romantický víkend",
+    promptCityCenter: "Pobyt v centru",
+    promptLuxury: "Luxusní butik",
+    testTitle: "Co říkají naši cestovatelé",
+    testSubtitle: "Skutečné příběhy hostů, kteří našli svůj dokonalý pobyt.",
+    test1Text: "Umělá inteligence navrhla Hotel General a byl to zlatý hřeb našeho výročí. Skvělá lokalita, okouzlující a romantické!",
+    test1Author: "Sarah a Mark, Velká Británie",
+    test2Text: "Efektivní a přesné. Ušetřilo mi to hodiny hledání. Doporučení bylo v centru, tiché a přesně to, co jsem potřeboval.",
+    test2Author: "Jan P., Česko",
+    test3Text: "Věřili jsme této službě a nezklamala. Našli jsme skvělou volbu pro rodiny s dětmi, která byla pro nás ideální.",
+    test3Author: "Elena V., Německo"
+  },
+  de: {
+    heroBadge: "Premium KI-Concierge",
+    heroTitle: "PragueAI Hotels",
+    heroSubtitle: "Entdecken Sie den perfekten Boutique-Aufenthalt in Prag mit unserem intelligenten Assistenten.",
+    navTryNow: "Jetzt ausprobieren",
+    chatWelcome: "Hallo! Ich bin Ihr erstklassiger PragueAI-Guide. Wie kann ich Ihnen helfen, das perfekte Hotel für Ihren Aufenthalt in Prag zu finden?",
+    chatHeaderTitle: "PragueAI Assistent",
+    chatHeaderSubtitle: "Immer online · Premium Support",
+    chatPlaceholder: "Fragen Sie mich nach Luxushotels in Prag…",
+    chatSendHint: "Drücken Sie Eingabe zum Senden · Umschalt+Eingabe für eine neue Zeile",
+    chatError: "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
+    trustTitle: "Warum Sie uns vertrauen können",
+    trustSubtitle: "Erleben Sie Prag wie nie zuvor mit unseren Premium-Empfehlungen und unübertroffener lokaler Expertise.",
+    feature1Title: "Lokale Prag-Experten",
+    feature1Desc: "Entwickelt von Einheimischen, die jeden Pflasterstein in Prag kennen. Wir analysieren Hunderte von Unterkünften, um wahre verborgene Schätze zu finden.",
+    feature2Title: "Intelligentes KI-Matching",
+    feature2Desc: "Unser fortschrittlicher Algorithmus findet in Millisekunden das perfekte Zimmer für Ihre genaue Stimmung, Ihr Budget und Ihre Reiseziele.",
+    feature3Title: "100% Unabhängig",
+    feature3Desc: "Wir bieten unvoreingenommene Empfehlungen, damit Sie Ihre Reise ohne Touristenfallen genießen können.",
+    footerText: "PragueAI Hotels — Premium Empfehlungsservice",
+    promptRomantic: "Romantisches Wochenende",
+    promptCityCenter: "Aufenthalt im Stadtzentrum",
+    promptLuxury: "Luxus-Boutique",
+    testTitle: "Was unsere Reisenden sagen",
+    testSubtitle: "Echte Geschichten von Gästen, die ihren perfekten Aufenthalt gefunden haben.",
+    test1Text: "Die KI hat das Hotel General vorgeschlagen, und es war das Highlight unseres Jubiläums. Perfekt gelegen, charmant und romantisch!",
+    test1Author: "Sarah & Mark, Großbritannien",
+    test2Text: "Effizient und genau. Hat mir Stunden an Suche erspart. Die Empfehlung war zentral, ruhig und genau das, was ich brauchte.",
+    test2Author: "Jan P., Tschechien",
+    test3Text: "Wir haben dem Service vertraut und wurden nicht enttäuscht. Wir haben eine tolle familienfreundliche Option gefunden, die perfekt für unsere Kinder war.",
+    test3Author: "Elena V., Deutschland"
   }
 };

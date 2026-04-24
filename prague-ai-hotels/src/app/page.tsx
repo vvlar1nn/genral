@@ -14,6 +14,7 @@ export default function HomePage() {
     const browserLang = navigator.language.toLowerCase();
     if (browserLang.startsWith("ru")) setLang("ru");
     else if (browserLang.startsWith("cs")) setLang("cs");
+    else if (browserLang.startsWith("de")) setLang("de");
     else setLang("en");
 
     setMounted(true);
@@ -26,9 +27,22 @@ export default function HomePage() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col relative">
+      {/* Panoramic Background with Fade */}
+      <div
+        className="absolute inset-x-0 top-0 h-[45vh] md:h-[55vh]"
+        style={{
+          backgroundImage: "url('/images/prague-panorama.jpg')",
+          backgroundColor: "#CBD5E1", /* Temporary fallback color so you can see it! */
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FDFCF0]/10 via-[#FDFCF0]/60 to-[#FDFCF0]" />
+      </div>
+
       {/* Navigation */}
-      <nav className="w-full flex items-center justify-between px-6 py-4 border-b border-black/5 bg-white/50 backdrop-blur-sm">
+      <nav className="relative z-10 w-full flex items-center justify-between px-6 py-4 border-b border-black/5 bg-[#FDFCF0]/40 backdrop-blur-md">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[#2F855A] flex items-center justify-center text-white text-xs font-bold shadow-md shadow-[#2F855A]/20">
             P
@@ -44,19 +58,21 @@ export default function HomePage() {
           </a>
 
           {/* Language Switcher */}
-          <div className="flex items-center gap-1 bg-[#FDFCF0] border border-slate-200 rounded-lg p-1 shadow-sm">
-            {(['en', 'ru', 'cs'] as Language[]).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                className={`text-[10px] font-bold px-2 py-1 rounded transition-colors ${lang === l
-                    ? "bg-[#2F855A] text-white"
-                    : "text-slate-500 hover:text-[#2F855A]"
-                  }`}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
+          <div className="relative">
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value as Language)}
+              className="appearance-none bg-[#FDFCF0] border border-slate-200 text-[#333333] text-[10px] font-bold pl-3 pr-8 py-1.5 rounded-lg shadow-sm hover:border-[#2F855A]/40 focus:outline-none focus:border-[#2F855A] focus:ring-1 focus:ring-[#2F855A]/20 transition-all cursor-pointer uppercase"
+            >
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="cs">CS</option>
+              <option value="de">DE</option>
+            </select>
+            {/* Custom chevron to replace the default select arrow */}
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
           </div>
         </div>
       </nav>
@@ -114,6 +130,72 @@ export default function HomePage() {
             <p className="text-slate-600 text-sm leading-relaxed">
               {t.feature3Desc}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="w-full max-w-5xl mx-auto px-6 pb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#333333] mb-4">{t.testTitle}</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto">
+            {t.testSubtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Review 1 */}
+          <div className="flex flex-col p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="flex text-[#2F855A] mb-4">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="mr-1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+              ))}
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed flex-1 italic mb-6">
+              &quot;{t.test1Text}&quot;
+            </p>
+            <div className="font-semibold text-[#333333] text-sm flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[#2F855A]/10 text-[#2F855A] flex items-center justify-center text-xs">
+                {t.test1Author.charAt(0)}
+              </div>
+              {t.test1Author}
+            </div>
+          </div>
+
+          {/* Review 2 */}
+          <div className="flex flex-col p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="flex text-[#2F855A] mb-4">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="mr-1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+              ))}
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed flex-1 italic mb-6">
+              &quot;{t.test2Text}&quot;
+            </p>
+            <div className="font-semibold text-[#333333] text-sm flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[#2F855A]/10 text-[#2F855A] flex items-center justify-center text-xs">
+                {t.test2Author.charAt(0)}
+              </div>
+              {t.test2Author}
+            </div>
+          </div>
+
+          {/* Review 3 */}
+          <div className="flex flex-col p-8 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="flex text-[#2F855A] mb-4">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="mr-1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+              ))}
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed flex-1 italic mb-6">
+              &quot;{t.test3Text}&quot;
+            </p>
+            <div className="font-semibold text-[#333333] text-sm flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[#2F855A]/10 text-[#2F855A] flex items-center justify-center text-xs">
+                {t.test3Author.charAt(0)}
+              </div>
+              {t.test3Author}
+            </div>
           </div>
         </div>
       </section>

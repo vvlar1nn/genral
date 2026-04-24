@@ -130,14 +130,14 @@ export function ChatWindow({ lang }: { lang: Language }) {
     }
   }, [messages, isTyping]);
 
-  const sendMessage = async () => {
-    const trimmed = input.trim();
-    if (!trimmed || isTyping) return;
+  const sendMessage = async (textOverride?: string) => {
+    const textToSend = textOverride || input.trim();
+    if (!textToSend || isTyping) return;
 
     const userMsg: Message = {
       id: crypto.randomUUID(),
       role: "user",
-      content: trimmed,
+      content: textToSend,
       timestamp: new Date(),
     };
 
@@ -149,7 +149,7 @@ export function ChatWindow({ lang }: { lang: Language }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed, history: messages, language: lang }),
+        body: JSON.stringify({ message: textToSend, history: messages, language: lang }),
       });
 
       let botContent: string;
@@ -218,6 +218,26 @@ export function ChatWindow({ lang }: { lang: Language }) {
 
         {/* Input area */}
         <div className="border-t border-slate-100 p-3 bg-white">
+          {/* Quick Prompts */}
+          {messages.length === 1 && (
+            <div className="flex flex-wrap gap-2 mb-3 px-1 animate-fade-in">
+              {[
+                t.promptRomantic,
+                t.promptCityCenter,
+                t.promptLuxury
+              ].map((prompt, i) => (
+                <button
+                  key={i}
+                  onClick={() => sendMessage(prompt)}
+                  disabled={isTyping}
+                  className="text-[11px] font-medium px-3 py-1.5 rounded-full border border-[#2F855A]/20 text-[#2F855A] bg-white hover:bg-[#2F855A]/5 transition-colors duration-200 disabled:opacity-50"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="flex items-end gap-2 bg-[#FDFCF0] rounded-xl px-4 py-2 border border-slate-200 focus-within:border-[#2F855A] focus-within:ring-1 focus-within:ring-[#2F855A]/20 transition-all shadow-inner">
             <textarea
               ref={inputRef}
@@ -232,7 +252,7 @@ export function ChatWindow({ lang }: { lang: Language }) {
             />
             <button
               id="send-button"
-              onClick={sendMessage}
+              onClick={() => sendMessage()}
               disabled={!input.trim() || isTyping}
               aria-label="Send message"
               className="mb-1 flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 bg-[#2F855A] hover:bg-[#22543D] disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-[#2F855A]/20"
