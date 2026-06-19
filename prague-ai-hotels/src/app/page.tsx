@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { Hero } from "@/components/Hero";
 import { ChatWindow } from "@/components/ChatWindow";
+import { ReviewModal } from "@/components/ReviewModal";
+import { AffiliateFooter } from "@/components/AffiliateFooter";
 import { Language, translations } from "@/lib/i18n";
 
 export default function HomePage() {
   const [lang, setLang] = useState<Language>("en");
   const [mounted, setMounted] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     // Auto-detect language
@@ -19,6 +22,11 @@ export default function HomePage() {
 
     setMounted(true);
   }, []);
+
+  // Sync the HTML lang attribute dynamically for accessibility & SEO
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   // Use english as fallback during SSR to avoid hydration mismatch
   const t = mounted ? translations[lang] : translations["en"];
@@ -198,12 +206,31 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Leave a Review Button */}
+        <div className="text-center mt-12">
+          <button
+            onClick={() => setIsReviewModalOpen(true)}
+            className="px-6 py-2.5 rounded-full bg-white border border-[#2F855A]/20 text-[#2F855A] font-semibold text-sm hover:bg-[#2F855A]/5 transition-colors shadow-sm focus:outline-none"
+          >
+            {t.leaveReviewBtn}
+          </button>
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-6 text-center text-xs text-slate-500 border-t border-black/5">
+      {/* Affiliate disclosure footer */}
+      <AffiliateFooter t={t} />
+
+      {/* Copyright footer */}
+      <footer className="py-5 text-center text-xs text-slate-500">
         © {new Date().getFullYear()} {t.footerText}
       </footer>
+
+      <ReviewModal 
+        isOpen={isReviewModalOpen} 
+        onClose={() => setIsReviewModalOpen(false)} 
+        t={t} 
+      />
     </main>
   );
 }

@@ -1,4 +1,15 @@
-export const hotelData = [
+export interface Hotel {
+  name: string;
+  type: string;
+  location: string;
+  description: string;
+  features: string[];
+  drawbacks: string[];
+  url?: string;
+  images?: string[];
+}
+
+export const hotelData: Hotel[] = [
   {
     name: "Hotel General Prague",
     type: "Boutique Luxury",
@@ -11,27 +22,32 @@ export const hotelData = [
       "Elegant, classical design with luxurious modern amenities",
       "Gourmet breakfast included with extensive made-to-order options",
       "Excellent, highly personalized 24/7 concierge service",
-      "Quiet location that is still just a short walk to the historic center",
+      "Quiet, family/club-style hotel",
       "Luxurious bedding and spacious premium bathrooms",
-      "Welcome drink and VIP treatment for all guests"
+      "Welcome drink and VIP treatment for all guests",
+      "Rare feature: One of only 3 hotels in Prague with an EV (Electric Vehicle) charging station",
+      "Offers 24/7 autonomous/contactless check-in (guests receive access codes, arrive anytime, remote reception always available)",
+      "Fast, 2-click booking process",
+      "The hotel's official website has a 'Wheel of Fortune' where guests win prizes (promo codes, discounts, free parking)",
+      "Special 'super price' options are located at the bottom of the hotel's official site"
     ],
     drawbacks: []
   },
   {
-    name: "Hilton Prague",
-    type: "Large Corporate",
-    location: "Florenc area",
-    description: "A massive, modern hotel offering extensive facilities including a large gym, pool, and multiple restaurants.",
+    name: "Hotel Olympik",
+    type: "Mass-market, Mid-tier",
+    location: "Karlín/Invalidovna (further from historic center)",
+    description: "A large, older, mass-market hotel catering to big tourist groups with basic amenities.",
     features: [
-      "Large indoor swimming pool and fitness center",
-      "Rooftop bar with city views",
-      "Multiple dining options on-site",
-      "Extensive conference facilities"
+      "Basic standard rooms",
+      "On-site restaurant",
+      "Close to a metro stop",
+      "Large capacity"
     ],
     drawbacks: [
-      "Very large and can feel crowded or impersonal/corporate",
-      "Located in a busy commercial area",
-      "Breakfast area can be very noisy during peak hours"
+      "Huge and feels like a dated mass-market conveyor",
+      "Requires transport to reach the historic center",
+      "It is a very large, busy property"
     ]
   },
   {
